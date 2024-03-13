@@ -72,7 +72,7 @@ export default function CreateEmployee() {
 
     return (
         <Layout>
-            <div className="max-w-[700px] px-2 mx-auto">
+            <div className="max-w-[500px] px-2 mx-auto">
                 <div className="flex justify-end mb-2">
                     <NavLink to={'/expenses'} className="flex justify-center bg-[#4c5165] text-gray-300 font-bold px-5 py-1 mb-2 rounded-md" >
                         <span className="mr-2">Expense List</span>
@@ -82,7 +82,7 @@ export default function CreateEmployee() {
 
                 <form className="form" onSubmit={submit} encType="multipart/form-data">
                     <div className="mb-4">
-                        <label>Expense Type</label>
+                        <label>Expense Category*</label>
                         <select
                             onChange={(e) => setSelectedCategory(e.target.value)}
                             value={selectedCategory}
@@ -101,10 +101,41 @@ export default function CreateEmployee() {
                         <input type="date" placeholder="Date" onChange={(e) => setDate(e.target.value)} />
                     </div>
 
-                    <div className="mb-4">
-                        <label>Ecpense For*</label>
+                    {/* <div className="mb-4">
+                        <label>Employee*</label>
                         <input type="text" placeholder="Ecpense For" onChange={(e) => setName(e.target.value)} />
+                    </div> */}
+
+                    <div className='mb-4'>
+                        <label>Cost For*</label>
+                        <select value={name} onChange={(e) => setName(e.target.value)}>
+                            <option value="">Select</option>
+                            <option value="236157 - Jahed Ahmed">236157-Jahed Ahmed</option>
+                            <option value="221029 - Mohammad Ali Roni">221029-Mohammad Ali Roni</option>
+                            <option value="246909 - Nurul Amin Dalim">246909-Nurul Amin Dalim</option>
+                            <option value="220345 - Ma Abdul Latif">220345-Ma Abdul Latif</option>
+                            <option value="191703 - Golam Shahid">191703-Golam Shahid</option>
+                            <option value="224744 - Nur Mohammad Rajon">224744-Nur Mohammad Rajon</option>
+                            <option value="220844 - Ahsan Habib">220844-Ahsan Habib</option>
+                            <option value="220343 - Rajib">220343-Rajib</option>
+                            <option value="246683 - Shah Moynul Islam Mahim">246683-Shah Moynul Islam Mahim</option>
+
+                            <option value="Latif Bike Fuel">Latif Bike Fuel</option>
+                            <option value="Jahed Bike Fuel">Jahed Bike Fuel</option>
+
+                            <option value="VAN Fuel">VAN Fuel</option>
+                            <option value="VAN Toll">VAN Toll</option>
+                            <option value="VAN Repair">VAN Repair</option>
+
+                            <option value="Electricity Bill">Electricity Bill</option>
+                            <option value="Water Bill">Water Bill</option>
+                            <option value="Admin Other Bill">Admin Other Bill</option>
+
+                            <option value="Bank Charge">Bank Charge</option>
+                        </select>
                     </div>
+
+
 
                     <div className="mb-4">
                         <label>Amount*</label>

@@ -53,7 +53,7 @@ export default function CreateEmployee() {
 
     return (
         <Layout>
-            <div className="max-w-[700px] px-2 mx-auto">
+            <div className="max-w-[600px] px-2 mx-auto">
                 <div className="flex justify-end mb-2">
                     <NavLink to={'/employees'} className="flex justify-center bg-[#4c5165] text-gray-300 font-bold px-5 py-1 mb-2 rounded-md" >
                         <span className="mr-2">Employee List</span>

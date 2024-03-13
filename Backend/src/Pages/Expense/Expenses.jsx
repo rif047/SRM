@@ -15,7 +15,7 @@ import ListAltOutlinedIcon from '@mui/icons-material/ListAltOutlined';
 import DownloadIcon from '@mui/icons-material/Download';
 
 export default function Expense() {
-    document.title = 'Petty Cash';
+    document.title = 'Petty Cash Expenses';
 
 
     const [refreshMessage, setRefreshMessage] = useState('');
@@ -40,6 +40,11 @@ export default function Expense() {
 
 
 
+    const [pettyCashUsed, setPettyCashUsed] = useState(0);
+    const [pettyCashLimit, setPettyCashLimit] = useState(60000);
+
+
+
     // When page load
     useEffect(() => {
         fetchData();
@@ -48,6 +53,16 @@ export default function Expense() {
             handleSearch(searchTerm);
         }
     }, [searchTerm]);
+
+
+    // Calculate total petty cash used
+    useEffect(() => {
+        let totalAmount = 0;
+        expenses.forEach(expense => {
+            totalAmount += expense.amount;
+        });
+        setPettyCashUsed(totalAmount);
+    }, [expenses]);
 
 
     // Fetch data from the API
@@ -189,16 +204,24 @@ export default function Expense() {
                     {successMessage} <DoneOutlinedIcon />
                 </p>
             )}
-            <div className="flex justify-end mb-5">
-                <NavLink to={'/expense_categories'} className="flex justify-center bg-[#4c5165] text-gray-300 font-bold px-5 rounded-md mr-5">
-                    <span className="mr-1">Expense Categories</span>
-                    <ListAltOutlinedIcon />
-                </NavLink>
+            <div className="flex justify-between mb-5">
+                <div className="">
+                    <p>Petty Cash Limit (March 24): <span className="font-bold text-blue-900">{pettyCashLimit}</span>/-</p>
+                    <p>Petty Cash Used: <span className="font-bold text-red-900">{pettyCashUsed}</span>/-</p>
+                    <p>Petty Cash In Hand <span className="font-bold text-green-900">{pettyCashLimit - pettyCashUsed}</span>/-</p>
+                </div>
+                <div className="">
+                    {/* <NavLink to={'/expense_categories'} className="flex justify-center bg-[#4c5165] text-gray-300 font-bold px-5 rounded-md mr-5">
+                        <span className="mr-1">Expense Categories</span>
+                        <ListAltOutlinedIcon />
+                    </NavLink> */}
 
-                <NavLink to={'/expenses/create'} className="flex justify-center bg-[#4c5165] text-gray-300 font-bold px-5 rounded-md">
-                    New
-                    <AddOutlinedIcon />
-                </NavLink>
+                    <NavLink to={'/expenses/create'} className="flex justify-center bg-[#4c5165] text-gray-300 font-bold px-8 py-3 rounded-md">
+                        New
+                        <AddOutlinedIcon />
+                    </NavLink>
+                </div>
+
             </div>
 
 
@@ -268,10 +291,10 @@ export default function Expense() {
                             Date
                         </th>
                         <th scope="col">
-                            Expense Type
+                            Category
                         </th>
                         <th scope="col">
-                            Paid For
+                            Cost For
                         </th>
                         <th scope="col">
                             Description
@@ -282,9 +305,9 @@ export default function Expense() {
                         <th scope="col" className=" w-[150px]">
                             Voucher
                         </th>
-                        <th scope="col" className=" w-[100px]">
+                        {/* <th scope="col" className=" w-[100px]">
                             Action
-                        </th>
+                        </th> */}
                     </tr>
                 </thead>
 
@@ -319,7 +342,7 @@ export default function Expense() {
                                             : `${process.env.REACT_APP_API_URL}/Images/Expenses/voucher.jpg`
                                     }
                                     alt={expense.name}
-                                    className="w-[70px] h-[50px] rounded-md shadow-lg cursor-pointer mr-2"
+                                    className="w-[50px] h-[30px] rounded-md shadow-lg cursor-pointer mr-2"
                                     onClick={() =>
                                         toggleFullSizeImage(
                                             expense.image
@@ -342,7 +365,7 @@ export default function Expense() {
                                     </span>
                                 </a>
                             </td>
-                            <td className=" w-[100px]">
+                            {/* <td className=" w-[100px]">
 
                                 <NavLink
                                     to={`/expenses/update/${expense._id}`}
@@ -352,7 +375,7 @@ export default function Expense() {
                                 </NavLink>
 
                                 <button onClick={() => handleDelete(expense._id)} className="[&>svg]:text-red-400"><DeleteOutlineOutlinedIcon /></button>
-                            </td>
+                            </td> */}
                         </tr>
                     ))}
                 </tbody>

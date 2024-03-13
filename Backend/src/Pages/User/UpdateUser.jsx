@@ -11,9 +11,7 @@ export default function UpdateUser() {
 
     const [nameValue, setNameValue] = useState('');
     const [phoneValue, setPhoneValue] = useState('');
-    const [altPhoneValue, setAltPhoneValue] = useState('');
     const [addressValue, setAddressValue] = useState('');
-    const [shippingAddressValue, setShippingAddressValue] = useState('');
     const [emailValue, setEmailValue] = useState('');
     const [answerValue, setAnswerValue] = useState('');
     const [error, setError] = useState('');
@@ -26,9 +24,7 @@ export default function UpdateUser() {
                 setEmployees(response.data);
                 setNameValue(response.data.name);
                 setPhoneValue(response.data.phone);
-                setAltPhoneValue(response.data.alt_phone);
                 setAddressValue(response.data.address);
-                setShippingAddressValue(response.data.shipping_address);
                 setEmailValue(response.data.email);
                 setAnswerValue(response.data.answer);
                 document.title = `Edit- ${response.data.name}`;
@@ -50,11 +46,9 @@ export default function UpdateUser() {
             await axios.patch(`${process.env.REACT_APP_API_URL}/api/users/update/${users._id}`, {
                 name: nameValue,
                 phone: phoneValue,
-                alt_phone: altPhoneValue ? altPhoneValue : phoneValue,
                 address: addressValue,
-                shipping_address: shippingAddressValue ? shippingAddressValue : addressValue,
-                answer: answerValue ? answerValue : 'bikersclan',
-                email: emailValue ? emailValue : 'bikersclan.bd@gmail.com'
+                answer: answerValue,
+                email: emailValue
             });
 
             const successMessageUrl = new URLSearchParams({ successMessage: 'Updated successfully' });
@@ -80,50 +74,30 @@ export default function UpdateUser() {
                 </div>
 
                 <form className="form" onSubmit={handleSubmit}>
-                    <div className='border-b-2 mb-10 pb-5'>
-                        <div className="mb-4">
-                            <label>Name*</label>
-                            <input
-                                type="text"
-                                value={nameValue}
-                                onChange={(e) => setNameValue(e.target.value)}
-                            />
-                        </div>
-
-                        <div className="mb-4">
-                            <label>Phone Number*</label>
-                            <input
-                                type="number"
-                                value={phoneValue}
-                                onChange={(e) => setPhoneValue(e.target.value)}
-                            />
-                        </div>
-
-                        <div className="mb-4">
-                            <label>Address*</label>
-                            <input
-                                type="text"
-                                value={addressValue}
-                                onChange={(e) => setAddressValue(e.target.value)}
-                            />
-                        </div>
-                    </div>
-
                     <div className="mb-4">
-                        <label>Alternative Phone Number</label>
+                        <label>Name*</label>
                         <input
-                            type="number"
-                            value={altPhoneValue}
-                            onChange={(e) => setAltPhoneValue(e.target.value)}
+                            type="text"
+                            value={nameValue}
+                            onChange={(e) => setNameValue(e.target.value)}
                         />
                     </div>
 
                     <div className="mb-4">
-                        <label>Shipping Address</label>
+                        <label>Phone Number*</label>
+                        <input
+                            type="number"
+                            value={phoneValue}
+                            onChange={(e) => setPhoneValue(e.target.value)}
+                        />
+                    </div>
+
+                    <div className="mb-4">
+                        <label>Address*</label>
                         <input
                             type="text"
-                            value={shippingAddressValue}
-                            onChange={(e) => setShippingAddressValue(e.target.value)}
+                            value={addressValue}
+                            onChange={(e) => setAddressValue(e.target.value)}
                         />
                     </div>
 

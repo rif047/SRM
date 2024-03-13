@@ -119,12 +119,10 @@ export default function User() {
         const filtered = users.filter((user) => {
             let nameMatch = user.name.toLowerCase().includes(term.toLowerCase());
             let phoneMatch = user.phone.includes(term);
-            let altPhoneMatch = user.alt_phone && user.alt_phone.includes(term);
             let addressMatch = user.address.toLowerCase().includes(term.toLowerCase());
-            let shippingAddressMatch = user.shipping_address.toLowerCase().includes(term.toLowerCase());
             let emailMatch = user.email && user.email.toLowerCase().includes(term.toLowerCase());
 
-            return nameMatch || phoneMatch || altPhoneMatch || addressMatch || shippingAddressMatch || emailMatch;
+            return nameMatch || phoneMatch || addressMatch || emailMatch;
         });
 
         setFilteredEmployees(filtered);
@@ -258,17 +256,12 @@ export default function User() {
                             Phone
                         </th>
                         <th scope="col">
-                            Alt Phone
+                            Email
                         </th>
                         <th scope="col">
                             Address
                         </th>
-                        <th scope="col">
-                            Shipping Address
-                        </th>
-                        <th scope="col">
-                            Email
-                        </th>
+
                         <th scope="col" className=" w-[100px]">
                             Action
                         </th>
@@ -289,18 +282,12 @@ export default function User() {
                                 {user.phone}
                             </td>
                             <td>
-                                {user.alt_phone === undefined || user.alt_phone === user.phone ? 'N/A' : user.alt_phone}
+                                {user.email}
                             </td>
                             <td>
                                 {user.address}
                             </td>
-                            <td>
-                                {user.shipping_address === undefined || user.shipping_address === user.address ? 'N/A' : user.shipping_address}
 
-                            </td>
-                            <td>
-                                {user.email === undefined || user.email === 'bikersclan.bd@gmail.com' ? 'N/A' : user.email}
-                            </td>
                             <td className=" w-[100px]">
 
                                 <NavLink

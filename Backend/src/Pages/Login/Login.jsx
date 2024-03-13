@@ -12,7 +12,7 @@ function Login() {
         event.preventDefault();
 
         try {
-            const response = await axios.post('http://localhost:9000/api/auth', { phone, password });
+            const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/auth`, { phone, password });
             const token = response.data.token;
             localStorage.setItem('token', token);
 
@@ -21,14 +21,19 @@ function Login() {
             window.location.href = "/";
 
         } catch (error) {
-            if (error.response.data.error) {
-                setError(error.response.data.error);
-            }
+            if (error.response && error.response.data) {
+                if (error.response.data.error) {
+                    setError(error.response.data.error);
+                }
 
-            if (error.response.data.message) {
-                setError(error.response.data.message);
+                if (error.response.data.message) {
+                    setError(error.response.data.message);
+                }
+            } else {
+                setError("An error occurred while processing the request.");
             }
         }
+
     }
 
     return (

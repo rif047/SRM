@@ -12,10 +12,8 @@ export default function CreateUser() {
 
     const [name, setName] = useState('');
     const [phone, setPhone] = useState('');
-    const [alt_phone, setAltPhone] = useState('');
     const [email, setEmail] = useState('');
     const [address, setAddress] = useState('');
-    const [shipping_address, setShippingAddress] = useState('');
     const [password, setPassword] = useState('');
     const [repeat_password, setRepeatPassword] = useState('');
     const [answer, setAnswer] = useState('');
@@ -33,14 +31,12 @@ export default function CreateUser() {
             await axios.post(`${process.env.REACT_APP_API_URL}/api/users/create`, {
                 name,
                 phone,
-                alt_phone: alt_phone ? alt_phone : phone,
                 address,
                 role,
-                shipping_address: shipping_address ? shipping_address : address,
-                email: email ? email : 'bikersclan.bd@gmail.com',
-                password: password ? password : 'bikersclan',
-                repeat_password: repeat_password ? repeat_password : 'bikersclan',
-                answer: answer ? answer : 'bikersclan',
+                email,
+                password,
+                repeat_password,
+                answer
             });
 
             if (password !== repeat_password) {
@@ -72,42 +68,29 @@ export default function CreateUser() {
                 </div>
 
                 <form className="form" onSubmit={submit}>
-                    <div className='border-b-2 mb-10 pb-5'>
-                        <div className="mb-4">
-                            <label>Name*</label>
-                            <input type="text" placeholder="Name" onChange={(e) => setName(e.target.value)} />
-                        </div>
-
-                        <div className="mb-4">
-                            <label>Phone Number*</label>
-                            <input type="number" placeholder="Phone Number" onChange={(e) => setPhone(e.target.value)} />
-                        </div>
-
-                        <div className="mb-4">
-                            <label>Address*</label>
-                            <input type="text" placeholder="Address" onChange={(e) => setAddress(e.target.value)} />
-                        </div>
-
-                        <div className='mb-4'>
-                            <label>User Type*</label>
-
-                            <select onChange={(e) => setRole(e.target.value)}>
-                                <option>Select User Type [Default: Employee]</option>
-                                <option value="0">Employee</option>
-                                <option value="1">Admin</option>
-                            </select>
-                        </div>
-                    </div>
-
-
                     <div className="mb-4">
-                        <label>Alternative Phone Number</label>
-                        <input type="number" placeholder="Alternative Phone Number" onChange={(e) => setAltPhone(e.target.value)} />
+                        <label>Name*</label>
+                        <input type="text" placeholder="Name" onChange={(e) => setName(e.target.value)} />
                     </div>
 
                     <div className="mb-4">
-                        <label>Shipping Addresss</label>
-                        <input type="text" placeholder="Shipping Address" onChange={(e) => setShippingAddress(e.target.value)} />
+                        <label>Phone Number*</label>
+                        <input type="number" placeholder="Phone Number" onChange={(e) => setPhone(e.target.value)} />
+                    </div>
+
+                    <div className="mb-4">
+                        <label>Address*</label>
+                        <input type="text" placeholder="Address" onChange={(e) => setAddress(e.target.value)} />
+                    </div>
+
+                    <div className='mb-4'>
+                        <label>User Type*</label>
+
+                        <select onChange={(e) => setRole(e.target.value)}>
+                            <option>Select</option>
+                            <option value="0">Employee</option>
+                            <option value="1">Admin</option>
+                        </select>
                     </div>
 
                     <div className="mb-4">
